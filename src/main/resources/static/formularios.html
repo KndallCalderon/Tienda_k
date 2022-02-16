@@ -1,0 +1,42 @@
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/menu.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <header class="header">
+            <nav class="nav">
+                <a href="index.html" class="nav-link logo">TechShop</a>
+                <ul class="nav-menu">
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="ejemplo9.html">&LeftTriangleBar;</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="ejemplo2.html">&RightTriangleBar;</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="audios.html">Audios</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="videos.html">Videos</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="iframe.html">iFrame</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="formularios.html">Formularios</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section>
+            <h2>Controles de formularios</h2>
+            <br>
+            <form action="#">
+                <label>button </label><input type="button" value="Enviar" id="button"><br>
+                <label>checkbox </label> Términos y condiciones<input type="checkbox" name="checkbox"><br>
+                <label>color </label><input type="color" name="color"><br><br>
+                <label>textarea </label><textarea name="Ejemplo" rows="5" cols="10"></textarea><br>
+                <label>datetime-local </label><input type="datetime-local" name="datetime-local"><br>
+                <label>email </label><input type="email" name="email" placeholder="name@gmail.com"><br>
+                <label>file </label><input type="file" name="file" accept="image/png,image/jpeg"><br>                
+                <input type="range" value="24" min="1" max="100" oninput="this.nextElementSibling.value = this.value">
+                <output>24</output><br>
+   
+                
+                <label>Submit </label><input type="submit" value="Submit"><br>
+            </form>
+        </section>
+    </body>
+</html>
