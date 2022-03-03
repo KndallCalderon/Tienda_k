@@ -4,12 +4,14 @@ import com.Tienda_k.dao.ClienteDao;
 import com.Tienda_k.domain.Cliente;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author calde
  */
+@Service
 public class ClienteServiceImpl implements ClienteService {
     
     @Autowired //crea instancias automatico
@@ -17,7 +19,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     @Transactional (readOnly = true) //lectura
-    public List<Cliente> getCliente() {
+    public List<Cliente> getClientes() {
         return (List<Cliente>) clienteDao.findAll();
     }
 

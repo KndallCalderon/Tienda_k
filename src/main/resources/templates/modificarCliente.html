@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Nuevo Cliente</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <h2>Datos del Cliente</h2>   
+        
+        <form th:action="@{/guardarCliente}"
+              method="post"
+              th:object="${cliente}"> 
+            
+            <input type="hidden" name="idcliente" th:field="*{idcliente}"/> 
+            <label for="nombre">Nombre: </label> <!--relacionado a un input-->
+            <input type="text" name="nombre" th:field="*{nombre}"/> <!-- th:field mapea el objeto para enviarlo y traerlo | igual a al identidad de Cliente-->
+            <br>
+            <label for="apellidos">Apellidos: </label> <!--relacionado a un input-->
+            <input type="text" name="apellidos" th:field="*{apellidos}"/>
+            <br>
+            <label for="correo">Correo: </label> <!--relacionado a un input-->
+            <input type="email" name="correo" th:field="*{correo}"/>
+            <br>
+            <label for="telefono">Telefono </label> <!--relacionado a un input-->
+            <input type="tel" name="telefono" th:field="*{telefono}"/>
+            <br>            
+            <input type="submit" name="guardar" value="Guardar Registro"/>
+            
+        </form>
+    </body>
+</html>
