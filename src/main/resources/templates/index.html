@@ -3,66 +3,33 @@
     <head>
         <title>Tienda online</title>
         <meta charset="UTF-8">
+        <link href="/css/menu.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <header th:replace="layout/plantilla :: header"></header>
-        <!--
-        <h1>Clientes desde una lista</h1>
-        <div th:if="${clientes != null and !clientes.empty}">
-            <table border="1">
+        <header th:replace="layout/plantilla :: header"></header>     
+        <div class="contenido">
+            <h2>Nuestros Artículos</h2>
+            <br>
+            <div th:if="${articulos != null and !articulos.empty}"> <!-- $ consultar atributos u objetos, @ para acciones-rutas-->
+                <table border="1">
                     <tr>
-                        <td>Nombre</td>
-                        <td>Apellidos</td>
-                        <td>Correo</td>
-                        <td>Telefono</td>
+                        <td>Descripción</td>
+                        <td>Precio</td>
                     </tr>
-                    <tr th:each="item : ${clientes}">
-                        <td th:text="${item.nombre}"></td>
-                        <td th:text="${item.apellidos}"></td>
-                        <td th:text="${item.correo}"></td>
-                        <td th:text="${item.telefono}"></td>
+                    <tr th:each="item : ${articulos}">
+                        <td th:text="${item.descripcion}"></td>
+                        <td th:text="${#numbers.formatDecimal(item.precio,3,2)}" style="text-align: right;"></td>
+                        <td><a th:href="@{/carrito/agregar/} + ${item.idArticulo}">Agregar</a></td>
                     </tr>
-            </table>
+                </table>
+            </div>
+
+            <div th:if="${articulos == null or articulos.empty}">
+                No hay artículos disponibles
+            </div>
+            <br>
         </div>
-        
-        <div th:if="${clientes == null or clientes.empty}">
-            La lista de clientes está vacía
-        </div>
-        -->
-        
-        <h1>Clientes desde una lista de BD</h1>
-        <br>
-        <a th:href="@{/nuevoCliente}">Nuevo Cliente</a> <!-- Va al index controller y busca la accion Nuevo Cliente-->
-        <br>
-        <br>
-        <div th:if="${clientesDB != null and !clientesDB.empty}"> <!-- $ consultar atributos u objetos, @ para acciones-rutas-->
-            <table border="1">
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Apellidos</td>
-                        <td>Correo</td>
-                        <td>Telefono</td>
-                        <td>--- M ---</td>
-                        <td>--- E ---</td>
-                    </tr>
-                    <tr th:each="item : ${clientesDB}">
-                        <td th:text="${item.nombre}"></td>
-                        <td th:text="${item.apellidos}"></td>
-                        <td th:text="${item.correo}"></td>
-                        <td th:text="${item.telefono}"></td>
-                        <td><a th:href="@{/modificarCliente/} + ${item.idcliente}">Modificar</a></td>
-                        <td><a th:href="@{/eliminarCliente/} + ${item.idcliente}">Eliminar</a></td>
-                    </tr>
-            </table>
-        </div>
-        
-        <div th:if="${clientesDB == null or clientesDB.empty}">
-            La lista de clientes está vacía
-        </div>
-        <br>
         <footer th:replace="layout/plantilla :: footer"></footer>
-        
+
     </body>
-    
-    
 </html>
