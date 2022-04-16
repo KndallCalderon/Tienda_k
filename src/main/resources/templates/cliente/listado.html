@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"> 
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security"> 
     <head>
         <title>Tienda online</title>
         <meta charset="UTF-8">
@@ -11,7 +12,7 @@
             <h2 th:text="#{cliente.titulo}">Listado de Clientes</h2>
             <br>
             <a th:href="@{/cliente/nuevo}"
-               th:text="#{cliente.nuevo}">Nuevo Cliente</a> <!-- Va al index controller y busca la accion Nuevo Cliente-->
+               th:text="#{cliente.nuevo}" sect:authorize="hasRole('ROLE_ADMIN')">Nuevo Cliente</a> <!-- Va al index controller y busca la accion Nuevo Cliente-->
             <br>
             <br>
             <div th:if="${clientes != null and !clientes.empty}"> <!-- $ consultar atributos u objetos, @ para acciones-rutas-->
@@ -22,8 +23,8 @@
                         <td th:text="#{cliente.correo}">Correo</td>
                         <td th:text="#{cliente.telefono}">Telefono</td>
                         <td th:text="#{cliente.limite}">Límite</td>
-                        <td th:text="#{accion.actualizar}">--- M ---</td>
-                        <td th:text="#{accion.eliminar}">--- E ---</td>
+                        <td th:text="#{accion.actualizar}" sect:authorize="hasRole('ROLE_ADMIN')">--- M ---</td>
+                        <td th:text="#{accion.eliminar}" sect:authorize="hasRole('ROLE_ADMIN')">--- E ---</td>
                     </tr>
                     <tr th:each="item : ${clientes}">
                         <td th:text="${item.nombre}"></td>
@@ -31,9 +32,9 @@
                         <td th:text="${item.correo}"></td>
                         <td th:text="${item.telefono}"></td>
                         <td th:text="${#numbers.formatDecimal(item.credito.limite,3,2)}"></td>
-                        <td><a th:href="@{/cliente/modificar/} + ${item.idCliente}"
+                        <td sect:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/cliente/modificar/} + ${item.idCliente}"
                                 th:text="#{accion.actualizar}">Modificar</a></td>
-                        <td><a th:href="@{/cliente/eliminar/} + ${item.idCliente}"
+                        <td sect:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/cliente/eliminar/} + ${item.idCliente}"
                                 th:text="#{accion.eliminar}">Eliminar</a></td>
                     </tr>
                 </table>

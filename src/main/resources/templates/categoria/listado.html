@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"> 
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security"> 
     <head>
         <title>Tienda online</title>
         <meta charset="UTF-8">
@@ -10,7 +11,7 @@
         <div class="contenido">
             <h2>Listado de Categorías</h2>
             <br>
-            <a th:href="@{/categoria/nuevo}">Nueva Categoría</a> <!-- Va al index controller y busca la accion Nuevo Cliente-->
+            <a th:href="@{/categoria/nuevo}" sect:authorize="hasRole('ROLE_ADMIN')">Nueva Categoría</a> <!-- Va al index controller y busca la accion Nuevo Cliente-->
             <br>
             <br>
             <div th:if="${categorias != null and !categorias.empty}"> <!-- $ consultar atributos u objetos, @ para acciones-rutas-->
@@ -18,14 +19,14 @@
                     <tr>
                         <td>Descripción</td>
                         <td>Activo</td>
-                        <td>Modificar</td>
-                        <td>Eliminar</td>
+                        <td sect:authorize="hasRole('ROLE_ADMIN')">Modificar</td>
+                        <td sect:authorize="hasRole('ROLE_ADMIN')">Eliminar</td>
                     </tr>
                     <tr th:each="item : ${categorias}">
                         <td th:text="${item.descripcion}"></td>
                         <td><input type="checkbox" name="activo" th:checked="${item.activo}" disabled="true"></td>
-                        <td><a th:href="@{/categoria/modificar/} + ${item.idCategoria}">Modificar</a></td>
-                        <td><a th:href="@{/categoria/eliminar/} + ${item.idCategoria}">Eliminar</a></td>
+                        <td sect:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/categoria/modificar/} + ${item.idCategoria}">Modificar</a></td>
+                        <td sect:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/categoria/eliminar/} + ${item.idCategoria}">Eliminar</a></td>
                     </tr>
                 </table>
             </div>

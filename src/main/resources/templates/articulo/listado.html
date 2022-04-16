@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"> 
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security"> 
     <head>
         <title>Tienda online</title>
         <meta charset="UTF-8">
@@ -10,7 +11,7 @@
         <div class="contenido">
             <h2>Listado de Artículos</h2>
             <br>
-            <a th:href="@{/articulo/nuevo}">Nuevo Artículo</a> <!-- Va al index controller y busca la accion Nuevo Cliente-->
+            <a th:href="@{/articulo/nuevo}" sect:authorize="hasRole('ROLE_ADMIN')">Nuevo Artículo</a> <!-- Va al index controller y busca la accion Nuevo Cliente-->
             <br>
             <br>
             <div th:if="${articulos != null and !articulos.empty}"> <!-- $ consultar atributos u objetos, @ para acciones-rutas-->
@@ -20,16 +21,16 @@
                         <td>Precio</td>
                         <td>Existencias</td>
                         <td>Activo</td>
-                        <td>Modificar</td>
-                        <td>Eliminar</td>
+                        <td sect:authorize="hasRole('ROLE_ADMIN')">Modificar</td>
+                        <td sect:authorize="hasRole('ROLE_ADMIN')">Eliminar</td>
                     </tr>
                     <tr th:each="item : ${articulos}">
                         <td th:text="${item.descripcion}"></td>
                         <td th:text="${#numbers.formatDecimal(item.precio,3,2)}"></td>
                         <td th:text="${item.existencias}"></td>
                         <td><input type="checkbox" name="activo" th:checked="${item.activo}" disabled="true"></td>
-                        <td><a th:href="@{/articulo/modificar/} + ${item.idArticulo}">Modificar</a></td>
-                        <td><a th:href="@{/articulo/eliminar/} + ${item.idArticulo}">Eliminar</a></td>
+                        <td sect:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/articulo/modificar/} + ${item.idArticulo}">Modificar</a></td>
+                        <td sect:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/articulo/eliminar/} + ${item.idArticulo}">Eliminar</a></td>
                     </tr>
                 </table>
             </div>
