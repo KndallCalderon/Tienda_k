@@ -9,20 +9,30 @@
                 <a th:href="@{/}" class="nav-link logo">TechShop</a>
                 <ul class="nav-menu">
                     <li class="nav-menu-item">
-                        <a class="nav-menu-link nav-link" th:href="@{/cliente/listado}">Clientes</a>
+                        <a class="nav-menu-link nav-link" th:href="@{/cliente/listado}"
+                           th:text="#{plantilla.clientes}">Clientes</a>
                     </li>
                     <li class="nav-menu-item">
-                        <a class="nav-menu-link nav-link" th:href="@{/articulo/listado}">Artículos</a>
+                        <a class="nav-menu-link nav-link" th:href="@{/articulo/listado}"
+                           th:text="#{plantilla.articulos}">Artículos</a>
                     </li>
                     <li class="nav-menu-item">
-                        <a class="nav-menu-link nav-link" th:href="@{/categoria/listado}">Categorías</a>
+                        <a class="nav-menu-link nav-link" th:href="@{/categoria/listado}"
+                           th:text="#{plantilla.categorias}">Categorías</a>
                     </li>
                 </ul>
 
             </nav>
 
         <footer th:fragment="footer" class="footer">
-            &COPY; Derechos Reservados 2022
+            <div>&COPY; [[#{plantilla.derechos}]]
+                <a th:href="@{/(lang=es)}">ES</a>
+                <a th:href="@{/(lang=en)}">EN</a>
+                
+                <form method="POST" th:action="@{/logout}" style="display: inline;">
+                    <a href="#" onclick="this.parentNode.submit();">Logout</a>
+                </form>
+            </div>
         </footer>
         
     </body>
