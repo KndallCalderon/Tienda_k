@@ -1,49 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://thymeleaf.org/extras/spring-security"> 
-    <head>
-        <title>Tienda online</title>
-        <meta charset="UTF-8">
-        <link href="/css/menu.css" rel="stylesheet" type="text/css"/>
+    <head th:replace="layout/plantilla :: head">
+        <title>Listado</title>
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"></header> 
-        <div class="contenido">
-            <h2 th:text="#{cliente.titulo}">Listado de Clientes</h2>
-            <br>
-            <a th:href="@{/cliente/nuevo}"
-               th:text="#{cliente.nuevo}" sect:authorize="hasRole('ROLE_ADMIN')">Nuevo Cliente</a> <!-- Va al index controller y busca la accion Nuevo Cliente-->
-            <br>
-            <br>
-            <div th:if="${clientes != null and !clientes.empty}"> <!-- $ consultar atributos u objetos, @ para acciones-rutas-->
-                <table border="1">
-                    <tr>
-                        <td th:text="#{cliente.nombre}">Nombre</td>
-                        <td th:text="#{cliente.apellidos}">Apellidos</td>
-                        <td th:text="#{cliente.correo}">Correo</td>
-                        <td th:text="#{cliente.telefono}">Telefono</td>
-                        <td th:text="#{cliente.limite}">Límite</td>
-                        <td th:text="#{accion.actualizar}" sect:authorize="hasRole('ROLE_ADMIN')">--- M ---</td>
-                        <td th:text="#{accion.eliminar}" sect:authorize="hasRole('ROLE_ADMIN')">--- E ---</td>
-                    </tr>
-                    <tr th:each="item : ${clientes}">
-                        <td th:text="${item.nombre}"></td>
-                        <td th:text="${item.apellidos}"></td>
-                        <td th:text="${item.correo}"></td>
-                        <td th:text="${item.telefono}"></td>
-                        <td th:text="${#numbers.formatDecimal(item.credito.limite,3,2)}"></td>
-                        <td sect:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/cliente/modificar/} + ${item.idCliente}"
-                                th:text="#{accion.actualizar}">Modificar</a></td>
-                        <td sect:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/cliente/eliminar/} + ${item.idCliente}"
-                                th:text="#{accion.eliminar}">Eliminar</a></td>
-                    </tr>
-                </table>
+
+        <section th:replace="cliente/fragmentosCliente :: botonesAgregar"/>
+        <section th:replace="cliente/fragmentosCliente :: agregarCliente"/>
+        <section th:replace="cliente/fragmentosCliente :: listadoClientes"/>
+
+        <section class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/cliente/ReporteClientes}" 
+                           class="btn btn-primary">
+                            <i class="fas fa-file"></i>Reporte</a>
+                    </div>
+                </div>
             </div>
 
-            <div th:if="${clientes == null or clientes.empty}">
-                <p th:text="#{cliente.no_mostrar}">No se encuentran clientes para mostrar</p>
-            </div>
-        </div>
+        </section>
+
         <footer th:replace="layout/plantilla :: footer"></footer>
 
     </body>
